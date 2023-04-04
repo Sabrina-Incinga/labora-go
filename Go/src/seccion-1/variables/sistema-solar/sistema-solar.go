@@ -1,7 +1,8 @@
-package main
+package sistemaSolar
 import "fmt"
 
-func main(){
+
+func SistemaSolar(){
 
 	var (planetName string = "Mercurio"
         planetName2 string = "Venus"
@@ -23,6 +24,7 @@ func main(){
 	fmt.Printf("%s tiene %d lunas\n", planetName7, numberOfMoons6)
 	fmt.Printf("%s tiene %d lunas\n", planetName8, numberOfMoons7)
 	fmt.Printf("%s tiene %d lunas\n", planetName9, numberOfMoons8)
+
 
 
 }
