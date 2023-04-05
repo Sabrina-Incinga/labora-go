@@ -1,8 +1,8 @@
 package main
-import "seccion-1/variables/restaurantes"
-import "seccion-1/variables/sistema-solar"
-import "seccion-1/variables/equipos"
-import "fmt"
+import ("labora-go/seccion-1/variables/restaurantes"
+		"labora-go/seccion-1/variables/sistema-solar"
+		"labora-go/seccion-1/variables/equipos"
+		"fmt")
 
 func main(){
 	restaurantes.Restaurantes()
