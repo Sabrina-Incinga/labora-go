@@ -18,7 +18,7 @@ func main(){
 }
 
 func segundosADateTime(segundos int) (int, int, int, int){
-	var dias, horas, min, seg int =  0, 0, 0, 0
+	var dias, horas, min, seg int
 
 	
 	aux:=segundos/60
