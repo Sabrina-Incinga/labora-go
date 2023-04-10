@@ -1,30 +1,27 @@
 package switchPractice
 
-import(
+import (
 	"fmt"
-	"time"
 )
 
-func SwitchPractice(){
-	currentTime := time.Now()
-	weekday := int(currentTime.Weekday())
+func SwitchPractice(numeroDeDia int) {
 
-	fmt.Print("El día de hoy es: ")
+	fmt.Print("El número corresponde al día: ")
 
-	switch weekday{
-	case 0: 
+	switch numeroDeDia {
+	case 0:
 		fmt.Println("Domingo")
-	case 1: 
+	case 1:
 		fmt.Println("Lunes")
-	case 2: 
+	case 2:
 		fmt.Println("Martes")
-	case 3: 
+	case 3:
 		fmt.Println("Miércoles")
-	case 4: 
+	case 4:
 		fmt.Println("Jueves")
-	case 5: 
+	case 5:
 		fmt.Println("Viernes")
-	case 6: 
+	case 6:
 		fmt.Println("Sábado")
 	}
 }
