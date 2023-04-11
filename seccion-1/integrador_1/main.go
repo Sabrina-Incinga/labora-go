@@ -1,13 +1,14 @@
 package main
 
 import ( "fmt"
-		"sort")
+		"sort"
+		"reflect")
 
 type Persona struct {
-	nombre string
-	edad   int
-	altura float64
-	peso   float64
+	Nombre string
+	Edad   int
+	Altura float64
+	Peso   float64
 }
 
 func crearPersona(nombre *string, edad *int, altura *float64, peso *float64) *Persona {
@@ -16,7 +17,7 @@ func crearPersona(nombre *string, edad *int, altura *float64, peso *float64) *Pe
 		fmt.Println("Error en alguno de los datos ingresados"); 
 		return nil
 	}
-	return &Persona{nombre: *nombre, edad: *edad, altura: *altura, peso: *peso}
+	return &Persona{Nombre: *nombre, Edad: *edad, Altura: *altura, Peso: *peso}
 
 }
 
@@ -24,19 +25,19 @@ func ordenarPersonas(personas []Persona, criterio int) []Persona{
 	switch criterio{
 		case 1:
 			sort.Slice(personas, func(i, j int) bool {
-				return personas[i].nombre < personas[j].nombre
+				return personas[i].Nombre < personas[j].Nombre
 			})
 		case 2:
 			 sort.Slice(personas, func(i, j int) bool {
-				return personas[i].edad < personas[j].edad
+				return personas[i].Edad < personas[j].Edad
 			})
 		case 3:
 			 sort.Slice(personas, func(i, j int) bool {
-				return personas[i].altura < personas[j].altura
+				return personas[i].Altura < personas[j].Altura
 			})
 		case 4:
 			 sort.Slice(personas, func(i, j int) bool {
-				return personas[i].peso < personas[j].peso
+				return personas[i].Peso < personas[j].Peso
 			})
 		default:
 	}
@@ -46,8 +47,7 @@ func ordenarPersonas(personas []Persona, criterio int) []Persona{
 
 func buscarPersona(personas []Persona, criterio int, valor any) *Persona{
 	var persona *Persona
-
-	porNombre := func(personas []Persona, valor any) *Persona{
+/* 	porNombre := func(personas []Persona, valor any) *Persona{
 		var persona1 *Persona
 		for i := 0; i < len(personas); i++ {
 			if personas[i].nombre == valor {
@@ -93,13 +93,40 @@ func buscarPersona(personas []Persona, criterio int, valor any) *Persona{
 		case 4:
 			persona = porPeso(personas, valor)
 	}
-	
+	 */
 
+	for _,value := range personas{
+		tipo := reflect.TypeOf(value)
+		//reflect.TypeOf(value) devuelve el tipo de la variable value en tiempo de ejecución, representado como un objeto reflect.Type; en este caso, representa un tipo Persona
+		fmt.Println(reflect.TypeOf(value))
+		for j := 0; j < tipo.NumField(); j++ {
+			//recorro los campos de tipo, que se corresponden con los campos de Persona, y selecciono aquel cuyo índice coincide con el criterio +1
+			if j+1 == criterio {
+				campo := tipo.Field(j)
+				campoValor := reflect.ValueOf(value).FieldByIndex(campo.Index)
+				//reflect.ValueOf(value) devuelve un valor de tipo reflect.value que REPRESENTA el valor de la variable value
+				//reflect.ValueOf(value).FieldByIndex(campo.Index) devuelve un valor de tipo reflect.value que REPRESENTA el valor de la variable value en el campo cuyo índice corresponde a por campo.Index
+				//reflect.ValueOf(value).FieldByIndex(campo.Index).Interface() devuelve el valor real del campo
+				if campoValor.Interface() == valor {
+					//comparo el valor del campo con el valor recibido por parámetro
+					persona = &value
+                    break
+				}
+			}
+		}
+		if persona != nil {
+            break
+        } //Debo agregar una validación dado que, de otra manera, 
+		//range se recorre completo sobreescribiendo el valor de persona dado 
+		//que no hay un return dentro del for que recorre a tipo y necesito tener return fuera del range para cumplir con la firma de la función
+	}
+	
 	return persona
 }
 
+
 func calcularIMC(persona Persona) string{
-	IMC := persona.peso/(persona.altura*persona.altura)
+	IMC := persona.Peso/(persona.Altura*persona.Altura)
 	var categoria string
 
 	if(IMC < 18.5){
@@ -112,50 +139,49 @@ func calcularIMC(persona Persona) string{
 		categoria="Obesidad"
 	}
 
-	return fmt.Sprintf("La persona %s, de %d años de edad, tiene peso de %.2fkg y altura %.2fm. Su IMC es de %.2f, categorizado en %s", persona.nombre, persona.edad, persona.peso, persona.altura, IMC, categoria)
+	return fmt.Sprintf("La persona %s, de %d años de edad, tiene peso de %.2fkg y altura %.2fm. Su IMC es de %.2f, categorizado en %s", persona.Nombre, persona.Edad, persona.Peso, persona.Altura, IMC, categoria)
 }
 
 func main() {
 
 	persona1 := Persona{
-		nombre: "Maria",
-		edad: 25,
-		altura: 1.50,
-		peso: 50,
+		Nombre: "Maria",
+		Edad: 25,
+		Altura: 1.50,
+		Peso: 50,
 	}
 	persona2 := Persona{
-		nombre: "Pepe",
-		edad: 37,
-		altura: 1.75,
-		peso: 80,
+		Nombre: "Pepe",
+		Edad: 37,
+		Altura: 1.75,
+		Peso: 80,
 	}
 	persona3 := Persona{
-		nombre: "Alicia",
-		edad: 20,
-		altura: 1.75,
-		peso: 65,
+		Nombre: "Alicia",
+		Edad: 20,
+		Altura: 1.75,
+		Peso: 65,
 	}
 	persona4 := Persona{
-		nombre: "Juan",
-		edad: 40,
-		altura: 1.85,
-		peso: 90,
+		Nombre: "Juan",
+		Edad: 40,
+		Altura: 1.85,
+		Peso: 90,
 	}
 	persona5 := Persona{
-		nombre: "Lucía",
-		edad: 27,
-		altura: 1.63,
-		peso: 60,
+		Nombre: "Lucía",
+		Edad: 27,
+		Altura: 1.63,
+		Peso: 60,
 	}
 
 	personas := [] Persona{persona1, persona2, persona3, persona4, persona5}
 
 	fmt.Println(ordenarPersonas(personas, 2))
-	fmt.Println(buscarPersona(personas, 1, "Juan carlos"))
+	fmt.Println(buscarPersona(personas, 1, "Pepe"))
 	fmt.Println(calcularIMC(persona1))
-	var algo string
+	/* var algo string
 	fmt.Scanln(&algo)
-	fmt.Println(algo)
+	fmt.Println(algo) */
 
-	
 }
