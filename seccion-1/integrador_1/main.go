@@ -184,7 +184,6 @@ func buscarPersona(personas []Persona, criterio int, valor any) *Persona{
 	for _,value := range personas{
 		tipo := reflect.TypeOf(value)
 	
-		fmt.Println(reflect.TypeOf(value))
 		for j := 0; j < tipo.NumField(); j++ {
 			if j+1 == criterio {
 				campo := tipo.Field(j)
