@@ -185,3 +185,14 @@ func main() {
 	fmt.Println(algo) */
 
 }
+
+
+/*
+var palabra string = "slice"
+	var i int = len(palabra) - 1
+	var sliceDeRunas []rune = make([]rune, len(palabra))
+	for posicion, valor := range palabra {
+		fmt.Println(posicion, string(valor))
+		sliceDeRunas[i] = valor
+	}
+*/
