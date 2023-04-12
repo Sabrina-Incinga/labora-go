@@ -11,6 +11,116 @@ type Persona struct {
 	Peso   float64
 }
 
+func calcularIMCPorConsola(criterio *int, nombre *string, personas *[]Persona, edad *int, altura *float64, peso *float64) {
+	fmt.Println("Debe seleccionar una persona para calcular su IMC \nIngrese el número de propiedad por la que desea buscar: \n1. Nombre \n2. Edad \n3. Altura \n4. Peso ")
+	fmt.Scanln(criterio)
+	switch *criterio {
+	case 1:
+		fmt.Println("Ingrese el nombre de la persona buscada:")
+		fmt.Scanln(nombre)
+		personaBucada := buscarPersona(*personas, *criterio, *nombre)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(calcularIMC(*personaBucada))
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	case 2:
+		fmt.Println("Ingrese la edad de la persona buscada:")
+		fmt.Scanln(edad)
+		personaBucada := buscarPersona(*personas, *criterio, *edad)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(calcularIMC(*personaBucada))
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	case 3:
+		fmt.Println("Ingrese la altura de la persona buscada:")
+		fmt.Scanln(altura)
+		personaBucada := buscarPersona(*personas, *criterio, *altura)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(calcularIMC(*personaBucada))
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	case 4:
+		fmt.Println("Ingrese el peso de la persona buscada:")
+		fmt.Scanln(peso)
+		personaBucada := buscarPersona(*personas, *criterio, *peso)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(calcularIMC(*personaBucada))
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	}
+}
+
+func buscarPersonaPorConsola(criterio *int, nombre *string, personas *[]Persona, edad *int, altura *float64, peso *float64) {
+	fmt.Println("Ingrese el número de propiedad por la que desea buscar: \n1. Nombre \n2. Edad \n3. Altura \n4. Peso ")
+	fmt.Scanln(criterio)
+	switch *criterio {
+	case 1:
+		fmt.Println("Ingrese el nombre de la persona buscada:")
+		fmt.Scanln(nombre)
+		personaBucada := buscarPersona(*personas, *criterio, *nombre)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(*personaBucada)
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	case 2:
+		fmt.Println("Ingrese la edad de la persona buscada:")
+		fmt.Scanln(edad)
+		personaBucada := buscarPersona(*personas, *criterio, *edad)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(*personaBucada)
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	case 3:
+		fmt.Println("Ingrese la altura de la persona buscada:")
+		fmt.Scanln(altura)
+		personaBucada := buscarPersona(*personas, *criterio, *altura)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(*personaBucada)
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	case 4:
+		fmt.Println("Ingrese el peso de la persona buscada:")
+		fmt.Scanln(peso)
+		personaBucada := buscarPersona(*personas, *criterio, *peso)
+		if personaBucada == nil {
+			fmt.Println("Persona no encontrada")
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		} else {
+			fmt.Println("Persona encontrada:")
+			fmt.Println(*personaBucada)
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+		}
+	}
+}
+
 func crearPersona(nombre *string, edad *int, altura *float64, peso *float64) *Persona {
 
 	if *edad < 0 || *altura < 0 || *peso < 0{
@@ -45,84 +155,7 @@ func ordenarPersonas(personas []Persona, criterio int) []Persona{
 	return personas
 }
 
-func buscarPersona(personas []Persona, criterio int, valor any) *Persona{
-	var persona *Persona
-/* 	porNombre := func(personas []Persona, valor any) *Persona{
-		var persona1 *Persona
-		for i := 0; i < len(personas); i++ {
-			if personas[i].nombre == valor {
-				persona1 = &personas[i]
-			} 
-		}
-		return persona1
-	}
-	porPeso := func(personas []Persona, valor any) *Persona{
-		var persona1 *Persona
-		for i := 0; i < len(personas); i++ {
-			if personas[i].peso == valor {
-				persona1 = &personas[i]
-			} 
-		}
-		return persona1
-	}
-	porEdad := func(personas []Persona, valor any) *Persona{
-		var persona1 *Persona
-		for i := 0; i < len(personas); i++ {
-			if personas[i].edad == valor {
-				persona1 = &personas[i]
-			} 
-		}
-		return persona1
-	}
-	porAltura := func(personas []Persona, valor any) *Persona{
-		var persona1 *Persona
-		for i := 0; i < len(personas); i++ {
-			if personas[i].altura == valor {
-				persona1 = &personas[i]
-			} 
-		}
-		return persona1
-	}
-	switch criterio{
-		case 1:
-			persona = porNombre(personas, valor)
-		case 2:
-			persona = porEdad(personas, valor)
-		case 3:
-			persona = porAltura(personas, valor)
-		case 4:
-			persona = porPeso(personas, valor)
-	}
-	 */
 
-	for _,value := range personas{
-		tipo := reflect.TypeOf(value)
-		//reflect.TypeOf(value) devuelve el tipo de la variable value en tiempo de ejecución, representado como un objeto reflect.Type; en este caso, representa un tipo Persona
-		fmt.Println(reflect.TypeOf(value))
-		for j := 0; j < tipo.NumField(); j++ {
-			//recorro los campos de tipo, que se corresponden con los campos de Persona, y selecciono aquel cuyo índice coincide con el criterio +1
-			if j+1 == criterio {
-				campo := tipo.Field(j)
-				campoValor := reflect.ValueOf(value).FieldByIndex(campo.Index)
-				//reflect.ValueOf(value) devuelve un valor de tipo reflect.value que REPRESENTA el valor de la variable value
-				//reflect.ValueOf(value).FieldByIndex(campo.Index) devuelve un valor de tipo reflect.value que REPRESENTA el valor de la variable value en el campo cuyo índice corresponde a por campo.Index
-				//reflect.ValueOf(value).FieldByIndex(campo.Index).Interface() devuelve el valor real del campo
-				if campoValor.Interface() == valor {
-					//comparo el valor del campo con el valor recibido por parámetro
-					persona = &value
-                    break
-				}
-			}
-		}
-		if persona != nil {
-            break
-        } //Debo agregar una validación dado que, de otra manera, 
-		//range se recorre completo sobreescribiendo el valor de persona dado 
-		//que no hay un return dentro del for que recorre a tipo y necesito tener return fuera del range para cumplir con la firma de la función
-	}
-	
-	return persona
-}
 
 
 func calcularIMC(persona Persona) string{
@@ -142,57 +175,85 @@ func calcularIMC(persona Persona) string{
 	return fmt.Sprintf("La persona %s, de %d años de edad, tiene peso de %.2fkg y altura %.2fm. Su IMC es de %.2f, categorizado en %s", persona.Nombre, persona.Edad, persona.Peso, persona.Altura, IMC, categoria)
 }
 
+
+
+
+func buscarPersona(personas []Persona, criterio int, valor any) *Persona{
+	var persona *Persona
+
+	for _,value := range personas{
+		tipo := reflect.TypeOf(value)
+	
+		fmt.Println(reflect.TypeOf(value))
+		for j := 0; j < tipo.NumField(); j++ {
+			if j+1 == criterio {
+				campo := tipo.Field(j)
+				campoValor := reflect.ValueOf(value).FieldByIndex(campo.Index)
+				
+				if campoValor.Interface() == valor {
+					persona = &value
+                    break
+				}
+			}
+		}
+		if persona != nil {
+            break
+        } 
+	}
+	
+	return persona
+}
 func main() {
+	var nombre string
+	var edad int
+	var altura float64
+	var peso float64
+	var accion int
+	var personas []Persona
+	var criterio int
 
-	persona1 := Persona{
-		Nombre: "Maria",
-		Edad: 25,
-		Altura: 1.50,
-		Peso: 50,
-	}
-	persona2 := Persona{
-		Nombre: "Pepe",
-		Edad: 37,
-		Altura: 1.75,
-		Peso: 80,
-	}
-	persona3 := Persona{
-		Nombre: "Alicia",
-		Edad: 20,
-		Altura: 1.75,
-		Peso: 65,
-	}
-	persona4 := Persona{
-		Nombre: "Juan",
-		Edad: 40,
-		Altura: 1.85,
-		Peso: 90,
-	}
-	persona5 := Persona{
-		Nombre: "Lucía",
-		Edad: 27,
-		Altura: 1.63,
-		Peso: 60,
-	}
+	for accion != 5{
+		fmt.Println("Ingrese el número de la opción deseada: \n1. Crear persona \n2. Ordenar personas \n3. Buscar persona \n4. Calcular IMC de una persona \n5. Salir")
+		fmt.Scanln(&accion)
+		switch accion{
+		case 1:
+			fmt.Println("Ingrese el nombre: ")
+			fmt.Scanln(&nombre)
+			fmt.Println("Ingrese la edad: ")
+			fmt.Scanln(&edad)
+			fmt.Println("Ingrese la altura: ")
+			fmt.Scanln(&altura)
+			fmt.Println("Ingrese el peso: ")
+			fmt.Scanln(&peso)
 
-	personas := [] Persona{persona1, persona2, persona3, persona4, persona5}
-
-	fmt.Println(ordenarPersonas(personas, 2))
-	fmt.Println(buscarPersona(personas, 1, "Pepe"))
-	fmt.Println(calcularIMC(persona1))
-	/* var algo string
-	fmt.Scanln(&algo)
-	fmt.Println(algo) */
+			persona := crearPersona(&nombre, &edad, &altura, &peso)
+			personas = append(personas, *persona)
+			fmt.Printf("********************** \nPersona creada exitosamente: \n%v\n**********************\n", *persona)
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+			accion = 0
+		case 2:
+			fmt.Println("Ingrese el número de propiedad por la que desea ordenar: \n1. Nombre \n2. Edad \n3. Altura \n4. Peso ")
+			fmt.Scanln(&criterio)
+			fmt.Println("Personas sin ordenar")
+			fmt.Println(personas)
+			fmt.Println("Personas ordenadas según el criterio elegido:")
+			ordenarPersonas(personas, criterio)
+			fmt.Println(personas)
+			fmt.Println("*********************************************Fin Solicitud**********************************************")
+			accion = 0
+		case 3:
+			buscarPersonaPorConsola(&criterio, &nombre, &personas, &edad, &altura, &peso)
+			accion = 0
+		case 4:
+			calcularIMCPorConsola(&criterio, &nombre, &personas, &edad, &altura, &peso)
+			accion = 0
+		case 5:
+			fmt.Println("Gracias, vuelva pronto!")
+		default:
+			accion = 0
+		}
+	}
 
 }
 
 
-/*
-var palabra string = "slice"
-	var i int = len(palabra) - 1
-	var sliceDeRunas []rune = make([]rune, len(palabra))
-	for posicion, valor := range palabra {
-		fmt.Println(posicion, string(valor))
-		sliceDeRunas[i] = valor
-	}
-*/
