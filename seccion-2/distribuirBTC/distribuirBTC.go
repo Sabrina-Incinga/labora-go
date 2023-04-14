@@ -36,19 +36,20 @@ func countString(s string, value string) int{
 	return result
 }
 
-func assignBTCAmount(s string) int{
-	a, e, i, o, u := 0, 0, 0, 0, 0
-
-	a = countString(s, "a")
-	e = countString(s, "e")
-	i = countString(s, "i")*2
-	o = countString(s, "o")*3
-	u = countString(s, "u")*4
-
-	return a+e+i+o+u
-}
 
 func distributeBTC(total *int, users []string, distr *map[string]int){
+	assignBTCAmount := func(s string) int{
+		a, e, i, o, u := 0, 0, 0, 0, 0
+	
+		a = countString(s, "a")
+		e = countString(s, "e")
+		i = countString(s, "i")*2
+		o = countString(s, "o")*3
+		u = countString(s, "u")*4
+	
+		return a+e+i+o+u
+	}
+	
 	for _, v := range users {
 		var count int = 0
 		if *total >0 {

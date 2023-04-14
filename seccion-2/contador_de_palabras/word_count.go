@@ -1,8 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"strings"
-	"golang.org/x/tour/wc"
+	//"golang.org/x/tour/wc"
 )
 
 func WordCount(s string) map[string]int {
@@ -10,9 +11,10 @@ func WordCount(s string) map[string]int {
 	var countMap = make(map[string]int)
 
 	for _, word := range words {
-		count, ok := countMap[word]; if ok { 
-			 countMap[word] = count + 1
-		}else{
+		count, ok := countMap[word]
+		if ok {
+			countMap[word] = count + 1
+		} else {
 			countMap[word] = 1
 		}
 	}
@@ -20,5 +22,6 @@ func WordCount(s string) map[string]int {
 	return countMap
 }
 func main() {
-	wc.Test(WordCount)
+	//wc.Test(WordCount)
+	fmt.Println(WordCount("I ate a donut. Then I ate another donut."))
 }
