@@ -1,9 +1,9 @@
 package main
 
 import (
-	//"fmt"
+	"fmt"
 	"labora-go/seccion-2/canales-pt2/multiplicacion"
-	//"labora-go/seccion-2/canales-pt2/suma"
+	"labora-go/seccion-2/canales-pt2/suma"
 )
 
 
@@ -15,7 +15,7 @@ func consumer(acum *int,c <-chan int) {
 
 
 func main() {
-	/* rango := 300000
+	rango := 300000
 	valorInicial := 1
 	ch := make(chan int)
 
@@ -24,7 +24,8 @@ func main() {
 
 	x, y := <-ch, <-ch // receive from c
 
-	fmt.Println(x, y, x+y) */
+	fmt.Println(x, y, x+y) 
+	
 	var matrizA [][]int = [][]int{{1,2,3}, {4,5,6}}
 	var matrizB [][]int = [][]int{{1,2}, {1,2}, {2,3}}
 
