@@ -1,8 +1,10 @@
 package main
 
-import("fmt"
-		"labora-go/seccion-2/canales-pt2/suma"
-		"time")
+import (
+	//"fmt"
+	"labora-go/seccion-2/canales-pt2/multiplicacion"
+	//"labora-go/seccion-2/canales-pt2/suma"
+)
 
 
 func consumer(acum *int,c <-chan int) {
@@ -13,17 +15,19 @@ func consumer(acum *int,c <-chan int) {
 
 
 func main() {
-	rango := 300000
+	/* rango := 300000
 	valorInicial := 1
 	ch := make(chan int)
-	acum := 0
 
 	go suma.SumarRango(valorInicial, rango/2, ch)
 	go suma.SumarRango(valorInicial+rango/2, rango, ch)
 
-	go consumer(&acum ,ch)
+	x, y := <-ch, <-ch // receive from c
 
-	
-	time.Sleep(time.Second)
-	fmt.Println(acum)
+	fmt.Println(x, y, x+y) */
+	var matrizA [][]int = [][]int{{1,2,3}, {4,5,6}}
+	var matrizB [][]int = [][]int{{1,2}, {1,2}, {2,3}}
+
+	multiplicacion.MultiplicarMatrices(matrizA, matrizB)
+
 }
