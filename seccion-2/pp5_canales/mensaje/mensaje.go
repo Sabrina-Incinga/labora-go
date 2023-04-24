@@ -50,7 +50,6 @@ func (q *messageQueue) addMessageToQueue(mensaje Mensaje) {
     switch mensaje.Tipo{
 		case "Email":
 			q.emailChan <- mensaje
-			fmt.Println("Agregué un email a la cola")
 		case "SMS":
 			q.smsChan <- mensaje
 		case "Push":
@@ -78,9 +77,12 @@ func procesarEmail(queue *messageQueue, mensajes *[]Mensaje, signal chan bool) {
 		if scanner.Scan() {
 			text := scanner.Text()
 			if text == "p" {
-				queue.stopSMS()
+				queue.stopEmails()
+			} else{
+				queue.startEmails()
 			}
 		}
+
         if queue.emailActivo {
 			//Agregar mensaje al historial una vez que fue procesado
 			go agregarMensajeAHistorial(mensajes, &msg)
@@ -111,6 +113,8 @@ func procesarSMS(queue *messageQueue, mensajes *[]Mensaje, signal chan bool){
 			text := scanner.Text()
 			if text == "p" {
 				queue.stopSMS()
+			} else {
+				queue.startSMS()
 			}
 		}
 		
@@ -133,13 +137,15 @@ func procesarSMS(queue *messageQueue, mensajes *[]Mensaje, signal chan bool){
 
 func procesarPush(queue *messageQueue, mensajes *[]Mensaje, signal chan bool){
 	scanner := bufio.NewScanner(os.Stdin)
-
+	
 	for msg := range queue.pushChan {
 		fmt.Println("Presione p para pausar procesamiento de mensajes push o enter para continuar")
 		if scanner.Scan() {
 			text := scanner.Text()
 			if text == "p" {
-				queue.stopSMS()
+				queue.stopPush()
+			} else{
+				queue.startPush()
 			}
 		}
         if queue.pushActivo {
@@ -160,13 +166,13 @@ func procesarPush(queue *messageQueue, mensajes *[]Mensaje, signal chan bool){
 }
 
 func agregarMensajeAHistorial(mensajes *[]Mensaje, mensaje *Mensaje) {
-	procesado := <- mensaje.Procesado
-	if procesado {
-		*mensajes = append(*mensajes, *mensaje)
+	<- mensaje.Procesado
 	
-		time.Sleep(time.Second)
-		fmt.Println("Historial de mensajes: ", *mensajes)
-	}
+	*mensajes = append(*mensajes, *mensaje)
+
+	time.Sleep(time.Second)
+	fmt.Println("Historial de mensajes: ", *mensajes)
+
 }
 
 
@@ -190,6 +196,7 @@ func ProcesarMensaje(){
 				go queue.addMessageToQueue(mensaje)
 				go procesarSMS(&queue, &mensajes, signalChannel)
 			case 3:
+				fmt.Println(len(queue.pushChan))
 				mensaje = CrearMensaje("Push")
 				go queue.addMessageToQueue(mensaje)
 				go procesarPush(&queue, &mensajes, signalChannel)
