@@ -26,19 +26,19 @@ func invertWords(word string) string{
 */
 
 func invertWords(word string) string {
-	pushLettersToSlice := func(s string, wordSlice *string) {
+	concatLettersToNewWord := func(s string, newWord *string) {
 		for _, v := range s {
 			b := func(x rune) {
-				*wordSlice += string(x)
+				*newWord += string(x)
 			}
 			defer b(v)
 		}
 	}
 
-	var slice string
-	pushLettersToSlice(word, &slice)
+	var invertedWord string
+	concatLettersToNewWord(word, &invertedWord)
 
-	return slice
+	return invertedWord
 
 }
 
