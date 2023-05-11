@@ -3,6 +3,7 @@ package main
 import "testing"
 
 func BenchmarkInvertWords(b *testing.B) {
-	invertWords("cuadrado")
-	//Output: "odardauc"
+	for i:=0;i<b.N;i++{
+		invertWords("cuadrado")
+	}
 }
