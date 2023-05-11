@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 /*
@@ -15,7 +14,7 @@ func invertWords(word string) string{
 			defer func (x rune)  {
 				*wordSlice = append(*wordSlice, string(x))
 			}(v)
-		}	
+		}
 	}
 
 	var slice []string
@@ -26,23 +25,23 @@ func invertWords(word string) string{
 }
 */
 
-func invertWords(word string) string{
-	pushLettersToSlice := func(s string, wordSlice *[]string){
+func invertWords(word string) string {
+	pushLettersToSlice := func(s string, wordSlice *string) {
 		for _, v := range s {
-			b := func (x rune)  {
-				*wordSlice = append(*wordSlice, string(x))
+			b := func(x rune) {
+				*wordSlice += string(x)
 			}
 			defer b(v)
-		}	
+		}
 	}
 
-	var slice []string
+	var slice string
 	pushLettersToSlice(word, &slice)
 
-	return strings.Join(slice, "")
+	return slice
 
 }
 
-func main(){
+func main() {
 	fmt.Println(invertWords("cuadrado"))
 }
